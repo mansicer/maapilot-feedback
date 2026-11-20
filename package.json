@@ -1,0 +1,12 @@
+{
+  "name": "maapilot-feedback",
+  "private": true,
+  "type": "module",
+  "description": "Receives MaaPilot user feedback (Cloudflare Worker + R2)",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "test": "node --test test/",
+    "deploy": "npx wrangler deploy",
+    "dev": "npx wrangler dev"
+  }
+}

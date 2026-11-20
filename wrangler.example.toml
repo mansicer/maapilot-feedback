@@ -1,0 +1,33 @@
+# 部署配置的模板。复制成 wrangler.toml（已在 .gitignore 里，不入库）再填。
+# 账号 ID 不写在文件里：部署时用环境变量 CLOUDFLARE_ACCOUNT_ID 和 CLOUDFLARE_API_TOKEN。
+# 密钥（TELEGRAM_BOT_TOKEN、TELEGRAM_CHAT_ID、ADMIN_TOKEN）用 `npx wrangler secret put <名字>` 设，不写在任何文件里。
+
+name = "maapilot-feedback"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true          # 先在 workers.dev 的临时地址上测；绑好正式域名后可以改成 false
+
+# 正式域名（会占用整个主机名，Cloudflare 自动建 DNS 记录和证书）。测通之前先注释着。
+# [[routes]]
+# pattern = "<你的域名>"
+# custom_domain = true
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "<存储桶的名字>"
+
+# 同一个 IP 每 60 秒最多发几份（period 只能是 10 或 60）
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
+[vars]
+MAX_BYTES = "5242880"       # 包的上限，和 MaaPilot 客户端一致
+DAILY_MAX = "200"           # 一天最多收多少份
+
+[observability]
+enabled = false             # 不开日志：请求里有用户的反馈内容

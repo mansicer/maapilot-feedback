@@ -1,0 +1,4 @@
+# 本地 `npx wrangler dev` 用的密钥。复制成 .dev.vars（不入库）再填；线上的用 `npx wrangler secret put` 设。
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+ADMIN_TOKEN=

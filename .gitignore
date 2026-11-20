@@ -1,0 +1,15 @@
+# 部署配置和密钥：只留模板（wrangler.example.toml、.dev.vars.example）在仓库里
+wrangler.toml
+wrangler.json
+wrangler.jsonc
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.env
+.env.*
+.wrangler/
+node_modules/
+*.log
+.DS_Store
+# 取回到本地看的反馈
+downloads/
