@@ -39,7 +39,7 @@ R2 里的布局：`feedback/<年>/<月>/<日>/<编号>/bundle.zip` 和 `manifest
 ## 测试
 
 ```sh
-node --test test/
+node --test test/worker.test.js
 ```
 
 不用装任何依赖（Node 22 以上）。请求体 `test/fixtures/request-body.bin` 是 MaaPilot 客户端真实生成的：客户端改了上传协议，就在 MaaPilot 的虚拟环境里重新生成一份，测试对不上说明两边走样了。

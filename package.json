@@ -5,7 +5,7 @@
   "description": "Receives MaaPilot user feedback (Cloudflare Worker + R2)",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test test/worker.test.js",
     "deploy": "npx wrangler deploy",
     "dev": "npx wrangler dev"
   }
