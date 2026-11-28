@@ -12,8 +12,8 @@ export const DEFAULTS = {
 const SCHEMA = 1;
 const ID_RE = /^fb-(\d{4})(\d{2})(\d{2})-\d{6}-[0-9a-f]{4}$/;
 const CATEGORIES = new Set(["bug", "experience", "idea", "other"]);
-// 客户端会产生的文件名，别的一律不收
-const FILE_RE = /^(feedback\.json|session\.md|session-raw\.txt|maa-log\.txt|shots\/[1-9]\.png)$/;
+// 客户端会产生的文件名，别的一律不收。截图收常见的位图格式；svg 能带脚本，不收
+const FILE_RE = /^(feedback\.json|session\.md|session-raw\.txt|maa-log\.txt|shots\/[1-9]\.(png|jpe?g|webp))$/;
 const MULTIPART_OVERHEAD = 64 * 1024;
 
 export default {

@@ -141,6 +141,9 @@ const bad = [
   ["编号里的日期离今天太远", (m) => void (m.id = "fb-20250101-000000-abcd"), "bad_id"],
   ["类别不认识", (m) => void (m.category = "spam"), "bad_category"],
   ["清单里有不该有的文件名", (m) => void m.files.push("../x.sh"), "bad_files"],
+  ["截图是 svg", (m) => void m.files.push("shots/2.svg"), "bad_files"],
+  ["截图后缀大写", (m) => void m.files.push("shots/2.JPG"), "bad_files"],
+  ["截图名后面还有别的后缀", (m) => void m.files.push("shots/2.jpg.exe"), "bad_files"],
   ["清单里的大小不对", (m) => void (m.bytes += 1), "size_mismatch"],
   ["哈希不对", (m) => void (m.sha256 = "0".repeat(64)), "hash_mismatch"],
   ["清单的文件和包里的不一样", (m) => void (m.files = ["feedback.json"]), "files_mismatch"],
@@ -153,6 +156,14 @@ for (const [name, change, code] of bad) {
     assert.equal(r.status, 400);
     assert.equal((await r.json()).error, code);
     assert.equal(e.BUCKET.objects.size, 0);
+  });
+}
+
+// 文件名过了白名单才会走到"和包里的对不上"这一步：包里没有这张图，所以是 files_mismatch 而不是 bad_files
+for (const ext of ["png", "jpg", "jpeg", "webp"]) {
+  test(`截图文件名认 .${ext}`, async () => {
+    const r = await handle(await rebuilt((m) => void m.files.push(`shots/2.${ext}`)), env());
+    assert.equal((await r.json()).error, "files_mismatch");
   });
 }
 
